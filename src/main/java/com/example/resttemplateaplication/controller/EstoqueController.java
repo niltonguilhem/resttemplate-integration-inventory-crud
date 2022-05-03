@@ -31,17 +31,31 @@ public class EstoqueController {
 
     @PostMapping
     public ResponseEntity<Estoque> post(@RequestBody Estoque estoque){
-        Estoque e = service.save(estoque);
+        Estoque e = service.insert(estoque);
 
         return new ResponseEntity(e, HttpStatus.CREATED);// O HttpStatus é responsavel pelo 201.
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Estoque> put(@PathVariable("id") Long id, @RequestBody Estoque estoque) {
+
+        Estoque e = service.update(id);
+
+        return new ResponseEntity(e, HttpStatus.ALREADY_REPORTED);
+    }
+
     @DeleteMapping("/{id}")
-    public Estoque delete(@PathVariable("id")Long id) {return service.delete(id);
+    //public Estoque delete(@PathVariable("id")Long id) {return service.delete(id);
 
     /*public ResponseEntity<Estoque> delete(@PathVariable ("id") Long id) {
         service.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);*/
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }*/
+
+    public void delete(@PathVariable("id") Long id) {
+        service.delete(id);
+
 
     }
 }

@@ -31,18 +31,25 @@ public class EstoqueService {
         return estoque;
     }
 
-    public Estoque save(Estoque estoque){
+    public Estoque insert(Estoque estoque){
         //return restTemplate.postForEntity("http://localhost:8080/api/v1/estoques", estoque, Estoque.class).getBody();
         ResponseEntity<Estoque> estoqueEntity =
                 restTemplate.postForEntity("http://localhost:8080/api/v1/estoques",estoque,Estoque.class);
         return estoqueEntity.getBody();
     }
 
-    public Estoque delete(Long id){
-        Estoque estoque = restTemplate.delete("http://localhost:8080/api/v1/estoques/" +id);
+    public Estoque update(Long id) {
+        ResponseEntity<Estoque> estoqueEntity = restTemplate.put("http://localhost:8080/api/v1/estoques/");
+        return estoqueEntity.getBody();
 
-        /*ResponseEntity<Estoque> estoque = restTemplate.exchange("http://localhost:8080/api/v1/estoques/fabricante/", HttpMethod.DELETE,null,Estoque.class);
-        return*/
+    }
+
+    public void delete(Long id){
+       //Estoque estoque = restTemplate.delete("http://localhost:8080/api/v1/estoques/"+id);
+
+
+        ResponseEntity<Estoque> estoqueEntity = restTemplate.exchange("http://localhost:8080/api/v1/estoques/fabricante/"+id,
+                HttpMethod.DELETE,null,Estoque.class);
 
     }
 }

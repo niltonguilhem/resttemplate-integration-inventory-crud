@@ -35,5 +35,14 @@ public class EstoqueController {
 
         return new ResponseEntity(e, HttpStatus.CREATED);// O HttpStatus é responsavel pelo 201.
     }
+
+    @DeleteMapping("/{id}")
+    public Estoque delete(@PathVariable("id")Long id) {return service.delete(id);
+
+    /*public ResponseEntity<Estoque> delete(@PathVariable ("id") Long id) {
+        service.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);*/
+
+    }
 }
 

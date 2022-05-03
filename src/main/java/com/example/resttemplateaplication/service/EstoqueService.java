@@ -3,9 +3,12 @@ package com.example.resttemplateaplication.service;
 import com.example.resttemplateaplication.config.RestTemplateIntegration;
 import com.example.resttemplateaplication.model.Estoque;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Optional;
 
 @Service
 public class EstoqueService {
@@ -31,7 +34,15 @@ public class EstoqueService {
     public Estoque save(Estoque estoque){
         //return restTemplate.postForEntity("http://localhost:8080/api/v1/estoques", estoque, Estoque.class).getBody();
         ResponseEntity<Estoque> estoqueEntity =
-                restTemplate.postForEntity("http://localhost:8080/api/v1/estoques", estoque, Estoque.class);
+                restTemplate.postForEntity("http://localhost:8080/api/v1/estoques",estoque,Estoque.class);
         return estoqueEntity.getBody();
+    }
+
+    public Estoque delete(Long id){
+        Estoque estoque = restTemplate.delete("http://localhost:8080/api/v1/estoques/" +id);
+
+        /*ResponseEntity<Estoque> estoque = restTemplate.exchange("http://localhost:8080/api/v1/estoques/fabricante/", HttpMethod.DELETE,null,Estoque.class);
+        return*/
+
     }
 }

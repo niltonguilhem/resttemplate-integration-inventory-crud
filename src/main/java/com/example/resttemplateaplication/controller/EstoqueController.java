@@ -38,25 +38,19 @@ public class EstoqueController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Estoque> put(@PathVariable("id") Long id, @RequestBody Estoque estoque) {
+        Estoque estoqueDto = new Estoque();
+        estoqueDto.setDescricao(estoque.getDescricao());
+        estoqueDto.setFabricante(estoque.getFabricante());
+        estoqueDto.setId(id);
 
-        Estoque e = service.update(id);
+        Estoque e = service.update(estoque,id);
 
         return new ResponseEntity(e, HttpStatus.ALREADY_REPORTED);
     }
 
     @DeleteMapping("/{id}")
-    //public Estoque delete(@PathVariable("id")Long id) {return service.delete(id);
-
-    /*public ResponseEntity<Estoque> delete(@PathVariable ("id") Long id) {
-        service.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-    }*/
-
     public void delete(@PathVariable("id") Long id) {
         service.delete(id);
-
-
     }
 }
 

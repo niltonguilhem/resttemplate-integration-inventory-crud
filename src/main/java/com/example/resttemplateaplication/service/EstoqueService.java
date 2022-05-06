@@ -3,6 +3,7 @@ package com.example.resttemplateaplication.service;
 import com.example.resttemplateaplication.config.RestTemplateIntegration;
 import com.example.resttemplateaplication.model.Estoque;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -38,17 +39,16 @@ public class EstoqueService {
         return estoqueEntity.getBody();
     }
 
-    public Estoque update(Long id) {
-        ResponseEntity<Estoque> estoqueEntity = restTemplate.put("http://localhost:8080/api/v1/estoques/");
+    public Estoque update(Estoque estoque, Long id) {
+        HttpEntity requesEntity = new HttpEntity<>(estoque);
+        ResponseEntity<Estoque> estoqueEntity =
+                restTemplate.exchange("http://localhost:8080/api/v1/estoques/"+id,HttpMethod.PUT,requesEntity,Estoque.class);
         return estoqueEntity.getBody();
 
     }
 
     public void delete(Long id){
-       //Estoque estoque = restTemplate.delete("http://localhost:8080/api/v1/estoques/"+id);
-
-
-        ResponseEntity<Estoque> estoqueEntity = restTemplate.exchange("http://localhost:8080/api/v1/estoques/fabricante/"+id,
+       ResponseEntity<Estoque> estoqueEntity = restTemplate.exchange("http://localhost:8080/api/v1/estoques/"+id,
                 HttpMethod.DELETE,null,Estoque.class);
 
     }

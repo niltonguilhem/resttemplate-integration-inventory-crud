@@ -30,6 +30,11 @@ public class Estoque {
         this.fabricante = fabricante;
     }
 
+    public Estoque withBuilderDescricao(String descricao){
+        setDescricao(descricao);
+        return this;
+    }
+
     public Estoque withBuilderFabricante(String fabricante){
         setFabricante(fabricante);
         return this;

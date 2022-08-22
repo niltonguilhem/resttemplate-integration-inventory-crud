@@ -1,6 +1,7 @@
 package com.example.resttemplateaplication.controller;
 
 import com.example.resttemplateaplication.model.Estoque;
+import com.example.resttemplateaplication.model.EstoqueRequest;
 import com.example.resttemplateaplication.model.EstoqueResponse;
 import com.example.resttemplateaplication.service.EstoqueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,13 +47,9 @@ public class EstoqueController {
 
     }
 
-    /*@GetMapping("/fabricante/{fabricante}")
-    public Estoque get(@PathVariable("fabricante") String fabricante){
-        return service.getEstoqueByFabricante(fabricante);
-    }*/
     @GetMapping("/fabricante/{fabricante}")
     public ResponseEntity<List<EstoqueResponse>> getFabricante(@PathVariable("fabricante") String fabricante) {
-        List<Estoque> estoqueList = Arrays.asList(service.findAllEstoques());
+        List<Estoque> estoqueList = Arrays.asList(service.getEstoqueByFabricante(fabricante));
         List<EstoqueResponse> response = estoqueList.stream().map(estoque -> new EstoqueResponse()
                 .withBuilderId(estoque.getId())
                 .withBuilderDescricao(estoque.getDescricao())
@@ -62,13 +59,21 @@ public class EstoqueController {
     }
 
     @PostMapping
-    public ResponseEntity<Estoque> post(@RequestBody Estoque estoque){
-        Estoque e = service.insert(estoque);
+    public ResponseEntity<EstoqueResponse> postEstoque(@RequestBody EstoqueRequest estoqueRequest){
 
-        return new ResponseEntity(e, HttpStatus.CREATED);// O HttpStatus é responsavel pelo 201.
+        Estoque estoque = service.save(new Estoque()
+                .withBuilderDescricao(estoqueRequest.getDescricao())
+                .withBuilderFabricante(estoqueRequest.getFabricante()));
+
+        EstoqueResponse response = new EstoqueResponse()
+                .withBuilderId(estoque.getId())
+                .withBuilderDescricao(estoque.getDescricao())
+                .withBuilderFabricante(estoque.getFabricante());
+
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    /*@PutMapping("/{id}")
     public ResponseEntity<Estoque> put(@PathVariable("id") Long id, @RequestBody Estoque estoque) {
         Estoque estoqueDto = new Estoque();
         estoqueDto.setDescricao(estoque.getDescricao());
@@ -78,6 +83,26 @@ public class EstoqueController {
         Estoque e = service.update(estoque,id);
 
         return new ResponseEntity(e, HttpStatus.ALREADY_REPORTED);
+    }*/
+    @PutMapping("/{id}")
+    public ResponseEntity<EstoqueResponse> putEstoque (@PathVariable("id")Long id,
+                                                       @RequestBody EstoqueRequest estoqueRequest){
+
+
+        Estoque estoqueUpdate = new Estoque()
+                .withBuilderId(id)
+                .withBuilderDescricao(estoqueRequest.getDescricao())
+                .withBuilderFabricante(estoqueRequest.getFabricante());
+
+
+        EstoqueResponse response = new EstoqueResponse()
+                .withBuilderId(estoqueUpdate.getId())
+                .withBuilderDescricao(estoqueUpdate.getDescricao())
+                .withBuilderFabricante(estoqueUpdate.getFabricante());
+
+        Estoque estoqueEntity = service.update(estoqueUpdate,id);
+
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

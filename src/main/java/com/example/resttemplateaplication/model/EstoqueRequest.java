@@ -4,6 +4,8 @@ public class EstoqueRequest {
     private String descricao;
     private String fabricante;
 
+
+
     public String getDescricao() {
         return descricao;
     }
@@ -19,5 +21,6 @@ public class EstoqueRequest {
     public void setFabricante(String fabricante) {
         this.fabricante = fabricante;
     }
+
 
 }

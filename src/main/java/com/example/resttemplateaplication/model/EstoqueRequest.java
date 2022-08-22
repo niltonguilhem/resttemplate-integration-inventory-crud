@@ -1,18 +1,8 @@
 package com.example.resttemplateaplication.model;
 
-public class Estoque {
-
-    private Long id;
+public class EstoqueRequest {
     private String descricao;
     private String fabricante;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getDescricao() {
         return descricao;
@@ -30,13 +20,4 @@ public class Estoque {
         this.fabricante = fabricante;
     }
 
-    public Estoque withBuilderFabricante(String fabricante){
-        setFabricante(fabricante);
-        return this;
-    }
-
-    public Estoque withBuilderId(Long id){
-        setId(id);
-        return this;
-    }
 }

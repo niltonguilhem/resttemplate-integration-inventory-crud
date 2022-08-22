@@ -7,9 +7,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Optional;
+
+
 
 @Service
 public class EstoqueService {
@@ -17,7 +17,7 @@ public class EstoqueService {
     @Autowired
     private RestTemplateIntegration restTemplate;
 
-    public Estoque[] getEstoque(){
+    public Estoque[] findAllEstoques(){
         Estoque[] estoque = restTemplate.getForObject("http://localhost:8080/api/v1/estoques",Estoque[].class);
         return estoque;
     }

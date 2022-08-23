@@ -1,3 +1,8 @@
-
 server:
   port: 8081
+
+## Inventory Crud ##
+inventory-crud:
+  host: http://localhost:8080/
+  path: api/v1/estoques/
+  path-fabricante: api/v1/estoques/fabricante/

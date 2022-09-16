@@ -15,7 +15,7 @@ public class ResttemplateAplicationApplication {
 	public static void main(String[] args) throws NamingException, JMXServerErrorException {
 		logger.info("Iniciando a api controle de vagas");
 		SpringApplication.run(ResttemplateAplicationApplication.class, args);
-		logger.info("API de controle de vaga iniciada e pronta para receber requisições");
+		logger.info("API de integração do controle de estoque iniciada e pronta para receber requisições");
 	}
 
 }

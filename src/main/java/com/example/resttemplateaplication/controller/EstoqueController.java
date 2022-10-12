@@ -60,8 +60,9 @@ public class EstoqueController {
     }
 
     @PostMapping
-    public ResponseEntity<EstoqueResponse> postEstoque(@RequestBody EstoqueRequest estoqueRequest){
-        logger.info("m=postEstoque - status=start");
+    public ResponseEntity<EstoqueResponse> postEstoque(@RequestBody EstoqueRequest estoqueRequest,
+                                                       @RequestHeader (value = "Partner") String Partner){
+        logger.info("m=postEstoque - status=start " + Partner);
         Estoque estoque = service.save(new Estoque()
                 .withBuilderDescricao(estoqueRequest.getDescricao())
                 .withBuilderFabricante(estoqueRequest.getFabricante()));
@@ -70,15 +71,16 @@ public class EstoqueController {
                 .withBuilderId(estoque.getId())
                 .withBuilderDescricao(estoque.getDescricao())
                 .withBuilderFabricante(estoque.getFabricante());
-        logger.info("m=postEstoque - status=finish");
+        logger.info("m=postEstoque - status=finish " + Partner);
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<EstoqueResponse> putEstoque (@PathVariable("id")Long id,
-                                                       @RequestBody EstoqueRequest estoqueRequest){
+                                                       @RequestBody EstoqueRequest estoqueRequest,
+                                                       @RequestHeader (value = "Partner") String Partner){
 
-        logger.info("m=putEstoque - status=start " + id);
+        logger.info("m=putEstoque - status=start " + id + " " + Partner);
         Estoque estoqueUpdate = new Estoque()
                 .withBuilderId(id)
                 .withBuilderDescricao(estoqueRequest.getDescricao())
@@ -91,7 +93,7 @@ public class EstoqueController {
                 .withBuilderFabricante(estoqueUpdate.getFabricante());
 
         Estoque estoqueEntity = service.update(estoqueUpdate,id);
-        logger.info("m=putEstoque - status=finish " + id);
+        logger.info("m=putEstoque - status=finish " + id + " " + Partner);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 

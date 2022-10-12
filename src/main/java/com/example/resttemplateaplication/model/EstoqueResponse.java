@@ -1,5 +1,6 @@
 package com.example.resttemplateaplication.model;
 
+
 public class EstoqueResponse {
     private Long id;
     private String descricao;

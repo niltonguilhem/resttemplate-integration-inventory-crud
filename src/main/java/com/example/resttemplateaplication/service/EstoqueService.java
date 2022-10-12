@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -54,17 +56,24 @@ public class EstoqueService {
 
     public Estoque save(Estoque estoque){
         logger.info("m=save - status=start ");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Partner", "Filial-01");
+        HttpEntity<Estoque> entity = new HttpEntity<>(estoque,headers);
+        URI uri = URI.create(host + path);
         ResponseEntity<Estoque> estoqueEntity =
-                restTemplate.postForEntity(host+path,estoque,Estoque.class);
-        logger.info("m=save - status=finish ");
+                restTemplate.exchange(uri,HttpMethod.POST,entity,Estoque.class);
+        logger.info("m=save - status=finish");
         return estoqueEntity.getBody();
     }
 
     public Estoque update(Estoque estoque, Long id) {
         logger.info("m=update - status=start " + estoque.getId());
-        HttpEntity requesEntity = new HttpEntity<>(estoque);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Partner", "Filial-01");
+        HttpEntity<Estoque> entity = new HttpEntity<>(estoque,headers);
+        URI uri = URI.create(host + path);
         ResponseEntity<Estoque> estoqueEntity =
-                restTemplate.exchange(host+path+id,HttpMethod.PUT,requesEntity,Estoque.class);
+                restTemplate.exchange(host+path+id,HttpMethod.PUT,entity,Estoque.class);
         logger.info("m=update - status=finish " + estoque.getId());
         return estoqueEntity.getBody();
 

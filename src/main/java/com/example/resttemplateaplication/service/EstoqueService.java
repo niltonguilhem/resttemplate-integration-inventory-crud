@@ -57,7 +57,7 @@ public class EstoqueService {
     public Estoque save(Estoque estoque){
         logger.info("m=save - status=start ");
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Partner", "Filial-01");
+        headers.add( "partner","Amazon");
         HttpEntity<Estoque> entity = new HttpEntity<>(estoque,headers);
         URI uri = URI.create(host + path);
         ResponseEntity<Estoque> estoqueEntity =
@@ -69,7 +69,7 @@ public class EstoqueService {
     public Estoque update(Estoque estoque, Long id) {
         logger.info("m=update - status=start " + estoque.getId());
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Partner", "Filial-01");
+        headers.add("partner", "Amazon");
         HttpEntity<Estoque> entity = new HttpEntity<>(estoque,headers);
         URI uri = URI.create(host + path);
         ResponseEntity<Estoque> estoqueEntity =

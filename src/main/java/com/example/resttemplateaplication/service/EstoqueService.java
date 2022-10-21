@@ -66,10 +66,10 @@ public class EstoqueService {
         return estoqueEntity.getBody();
     }
 
-    public Estoque update(Estoque estoque, Long id) {
+    public Estoque update(Estoque estoque, Long id, String partner) {
         logger.info("m=update - status=start " + estoque.getId());
         HttpHeaders headers = new HttpHeaders();
-        headers.add("partner", "Amazon");
+        headers.add("partner", partner);
         HttpEntity<Estoque> entity = new HttpEntity<>(estoque,headers);
         URI uri = URI.create(host + path);
         ResponseEntity<Estoque> estoqueEntity =

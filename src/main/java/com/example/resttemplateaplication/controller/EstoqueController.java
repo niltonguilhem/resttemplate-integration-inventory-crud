@@ -94,7 +94,7 @@ public class EstoqueController {
                 .withBuilderDescricao(estoqueUpdate.getDescricao())
                 .withBuilderFabricante(estoqueUpdate.getFabricante());
 
-        Estoque estoqueEntity = service.update(estoqueUpdate,id);
+        Estoque estoqueEntity = service.update(estoqueUpdate,id,partner);
         logger.info("m=putEstoque - status=finish " + id + " " + partner);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }

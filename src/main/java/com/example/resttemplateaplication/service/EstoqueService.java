@@ -54,10 +54,10 @@ public class EstoqueService {
         return estoque;
     }
 
-    public Estoque save(Estoque estoque){
+    public Estoque save(Estoque estoque, String partner){
         logger.info("m=save - status=start ");
         HttpHeaders headers = new HttpHeaders();
-        headers.add( "partner","Amazon");
+        headers.add( "partner",partner);
         HttpEntity<Estoque> entity = new HttpEntity<>(estoque,headers);
         URI uri = URI.create(host + path);
         ResponseEntity<Estoque> estoqueEntity =

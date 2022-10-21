@@ -67,7 +67,7 @@ public class EstoqueController {
         logger.info("m=postEstoque - status=start " + partner);
         Estoque estoque = service.save(new Estoque()
                 .withBuilderDescricao(estoqueRequest.getDescricao())
-                .withBuilderFabricante(estoqueRequest.getFabricante()));
+                .withBuilderFabricante(estoqueRequest.getFabricante()),partner);
 
         EstoqueResponse response = new EstoqueResponse()
                 .withBuilderId(estoque.getId())
